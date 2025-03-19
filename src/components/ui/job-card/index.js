@@ -1,5 +1,5 @@
 import LocationIcon from "@/components/icons/location";
-import { Heart, MapPin, Calendar } from "lucide-react";
+import { Heart, Calendar } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 const JobCard = ({ job }) => {

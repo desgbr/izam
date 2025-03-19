@@ -1,4 +1,4 @@
-import { Check, ChevronDown, ChevronUp, Edit, Eye, EyeOff, GripVertical, Pencil, X } from "lucide-react";
+import { Check, ChevronDown, ChevronUp, Eye, EyeOff, GripVertical, Pencil, X } from "lucide-react";
 import Link from "next/link";
 import NestedSortableList from "./nested-sortable-list";
 import { CSS } from "@dnd-kit/utilities";

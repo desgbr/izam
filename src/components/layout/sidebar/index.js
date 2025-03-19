@@ -1,6 +1,6 @@
 "use client";
 // components/Sidebar.js
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import {
   DndContext,
@@ -34,7 +34,7 @@ const Sidebar = () => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const { data, mutate } = useSWR("get-navigation", getNavData, {
+  const { mutate } = useSWR("get-navigation", getNavData, {
     revalidateOnFocus: false,
     onSuccess: (res) => {
       console.log(res);
