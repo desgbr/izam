@@ -1,0 +1,21 @@
+{
+  "env": {
+    "node": true,
+    "commonjs": true,
+    "serviceworker": true,
+    "browser": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
+  "extends": ["next/core-web-vitals", "next", "prettier"],
+  "rules": {
+    "no-undef": "error",
+    "no-unused-vars": "error",
+    "no-duplicate-imports": "error",
+    "block-spacing": ["error", "never"],
+    "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
+    "comma-spacing": ["error", { "before": false, "after": true }]
+  }
+}
