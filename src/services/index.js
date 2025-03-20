@@ -16,7 +16,7 @@ const getNavData = async () => {
     const req = await Axios(config)    
     return req.data
   } catch (error) {
-    return error
+    return null
   }
 }
 const trackEvent = async ({id, from, to}) => {
@@ -30,7 +30,7 @@ const trackEvent = async ({id, from, to}) => {
     const req = await Axios(config)    
     return req.data
   } catch (error) {
-    return error
+    return null
   }
 }
 const editNav = async (updatedNav) => {
@@ -43,7 +43,7 @@ const editNav = async (updatedNav) => {
     const req = await Axios(config)    
     return req.data
   } catch (error) {
-    return error
+    return null
   }
 }
 

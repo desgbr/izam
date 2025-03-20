@@ -23,6 +23,7 @@ import useSWRMutation from "swr/mutation";
 
 import { editNav, getNavData, trackEvent } from "@/services";
 import { useOpenSidenav } from "@/context/app";
+import { altData } from "@/data/menu";
 const sendRequest = async (url, { arg }) => {
   return await editNav(arg);
 };
@@ -40,9 +41,13 @@ const Sidebar = () => {
     revalidateOnFocus: false,
     onSuccess: (res) => {
       console.log(res);
+      if(Array.isArray(res)) {
       setMenuItems(res);
-      setOriginalMenuItems(JSON.parse(JSON.stringify(res))); // Create a deep copy
-    },
+      setOriginalMenuItems(JSON.parse(JSON.stringify(res)))}
+      else{
+        setMenuItems(altData)
+      }
+    }
   });
 
   const { trigger: saveNavigation } = useSWRMutation(
@@ -61,8 +66,8 @@ const Sidebar = () => {
     const { active, over } = event;
 
     if (active.id !== over.id) {
-      const oldIndex = menuItems.findIndex((item) => item.id === active.id);
-      const newIndex = menuItems.findIndex((item) => item.id === over.id);
+      const oldIndex = menuItems?.findIndex((item) => item.id === active.id);
+      const newIndex = menuItems?.findIndex((item) => item.id === over.id);
 
       const newItems = [...menuItems];
       const [removed] = newItems.splice(oldIndex, 1);
@@ -194,10 +199,10 @@ const Sidebar = () => {
           modifiers={[restrictToVerticalAxis]}
         >
           <SortableContext
-            items={menuItems.map((item) => item.id)}
+            items={menuItems?.map((item) => item.id)}
             strategy={verticalListSortingStrategy}
           >
-            {menuItems.map((item) => (
+            {menuItems?.map((item) => (
               <SortableItem
                 key={item.id}
                 id={item.id}
@@ -214,7 +219,7 @@ const Sidebar = () => {
         </DndContext>
       ) : (
         <div className='flex flex-col gap-2 mx-4 mt-4'>
-          {menuItems.map((item) => {
+          {menuItems?.map((item) => {
             if (item.visible === false) return null;
 
             return (
