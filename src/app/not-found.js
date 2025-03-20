@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import React from 'react'
 
-const NotFound = () => {
+export default function NotFound() {
   return (
-    <div className="grid h-screen place-content-center bg-white px-4 dark:bg-gray-900">
+    <div className="grid h-screen px-4 bg-white place-content-center dark:bg-gray-900">
       <div className="text-center">
-        <h1 className="text-9xl font-black text-gray-200 dark:text-gray-700">
+        <h1 className="font-black text-gray-200 text-9xl dark:text-gray-700">
           404
         </h1>
 
@@ -19,7 +19,7 @@ const NotFound = () => {
 
         <Link
           href="/"
-          className="mt-6 inline-block rounded-sm bg-green-600 px-5 py-3 text-sm font-medium text-white hover:bg-grreen-700 focus:ring-3 focus:outline-hidden"
+          className="inline-block px-5 py-3 mt-6 text-sm font-medium text-white bg-green-600 rounded-sm hover:bg-grreen-700 focus:ring-3 focus:outline-hidden"
         >
           Go Back Home
         </Link>
@@ -27,5 +27,3 @@ const NotFound = () => {
     </div>
   );
 };
-
-export default NotFound

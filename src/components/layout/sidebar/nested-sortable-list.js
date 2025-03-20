@@ -3,6 +3,7 @@ import SortableItem from "./sortable-item";
 import { closestCenter, DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { useState, useEffect } from "react";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
+import { trackEvent } from "@/services";
 
 const NestedSortableList = ({
   items,
@@ -41,6 +42,14 @@ const NestedSortableList = ({
 
       setLocalItems(newItems);
       handleEditToggle(parentId, newItems);
+      const item = localItems[newIndex];
+      trackEvent({
+        id: item?.id,
+        from: oldIndex,
+        to: newIndex,
+      }).then((res) => {
+        console.log('trackEvent ---->', res);
+      });
     }
   };
 

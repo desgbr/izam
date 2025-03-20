@@ -16,17 +16,19 @@ import {
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
-import { Settings, ChevronDown, ChevronUp, X, Check } from "lucide-react";
+import { Settings, ChevronDown, ChevronUp, X, Check, ArrowLeft } from "lucide-react";
 import SortableItem from "./sortable-item";
 import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
 
 import { editNav, getNavData, trackEvent } from "@/services";
+import { useOpenSidenav } from "@/context/app";
 const sendRequest = async (url, { arg }) => {
   return await editNav(arg);
 };
 
 const Sidebar = () => {
+  const {setOpen} = useOpenSidenav()
   const [menuItems, setMenuItems] = useState([]);
   const [originalMenuItems, setOriginalMenuItems] = useState([]);
   const [expandedItems, setExpandedItems] = useState([2, 4]);
@@ -158,25 +160,28 @@ const Sidebar = () => {
   };
 
   return (
-    <div className=" min-w-96 md:max-w-[440px] bg-white shadow-md h-full">
-      <div className="flex justify-between items-center p-4 border-b">
-        <h2 className="text-2xl font-medium">Menu</h2>
+    <div className=' h-full min-w-96 bg-white shadow-md md:max-w-[440px]'>
+      <div className='flex items-center justify-between p-4 border-b'>
+        <h2 className='flex items-center gap-3 text-2xl font-medium'>
+          <ArrowLeft onClick={() => setOpen(false)} size={20} className='md:hidden' />
+          <span>Menu</span>
+        </h2>
         <button onClick={toggleEditMode}>
           {editMode ? (
-            <div className="flex space-x-2">
+            <div className='flex space-x-2'>
               <X
                 onClick={handleCancelChanges}
                 size={20}
-                className="text-red-500 size-10 rounded-full p-1 border-2 border-red-500 hover:bg-red-100"
+                className='p-1 text-red-500 border-2 border-red-500 rounded-full size-10 hover:bg-red-100'
               />
               <Check
                 onClick={handleSave}
                 size={20}
-                className="text-green-500 size-10 rounded-full p-1 border-2 border-green-500 hover:bg-green-100"
+                className='p-1 text-green-500 border-2 border-green-500 rounded-full size-10 hover:bg-green-100'
               />
             </div>
           ) : (
-            <Settings className="size-8" />
+            <Settings className='size-8' />
           )}
         </button>
       </div>
@@ -208,14 +213,14 @@ const Sidebar = () => {
           </SortableContext>
         </DndContext>
       ) : (
-        <div className="flex flex-col gap-2 mx-4 mt-4">
+        <div className='flex flex-col gap-2 mx-4 mt-4'>
           {menuItems.map((item) => {
             if (item.visible === false) return null;
 
             return (
               <div key={item.id}>
                 <div
-                  className="bg-[#F7F7F7] rounded-md"
+                  className='rounded-md bg-[#F7F7F7]'
                   onClick={() => {
                     if (item.children) {
                       handleToggleExpand(item.id);
@@ -225,14 +230,14 @@ const Sidebar = () => {
                   }}
                 >
                   <div
-                    className={`p-4 cursor-pointer flex items-center rounded-md ${
+                    className={`flex cursor-pointer items-center rounded-md p-4 ${
                       pathname === item.target
-                        ? "bg-gray-100"
-                        : "hover:bg-gray-200"
+                        ? 'bg-gray-100'
+                        : 'hover:bg-gray-200'
                     }`}
                   >
                     {item.children && (
-                      <span className="mr-2">
+                      <span className='mr-2'>
                         {expandedItems.includes(item.id) ? (
                           <ChevronDown size={18} />
                         ) : (
@@ -240,7 +245,7 @@ const Sidebar = () => {
                         )}
                       </span>
                     )}
-                    <span className="text-2xl">{item.title}</span>
+                    <span className='text-2xl'>{item.title}</span>
                   </div>
                 </div>
 
@@ -251,8 +256,8 @@ const Sidebar = () => {
                       .map((child) => (
                         <div
                           key={child.id}
-                          className={`p-3 pl-8 hover:bg-gray-100 cursor-pointer text-[22px] ${
-                            pathname === child.target ? "bg-gray-100" : ""
+                          className={`cursor-pointer p-3 pl-8 text-[22px] hover:bg-gray-100 ${
+                            pathname === child.target ? 'bg-gray-100' : ''
                           }`}
                           onClick={() => router.push(child.target)}
                         >

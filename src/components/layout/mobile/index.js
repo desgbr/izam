@@ -4,27 +4,50 @@ import NavList from '../navbar/nav-list'
 import { links } from '@/data/navbar'
 
 const MobileNavbar = ({show, setShow}) => {
-  return show && (
-    <nav onClick={() => setShow(false)} className='md:hidden fixed w-screen flex justify-end top-0 left-0 h-screen overflow-hidden bg-black/80 z-[999]'>
-      <div className="w-10/12 h-screen bg-white ">
-      <UserInfo className='border-b py-8'/>
-      <NavList className='text-gray-900 flex-col justify-start gap-1 py-4' data={links}/>
-        <button className="block text-gray-800 px-4 text-base py-3 w-full text-left hover:bg-gray-100">
+  const handleClose = () => setShow(false)
+  return (
+    show && (
+      <nav
+        onClick={() => setShow(false)}
+        className='fixed left-0 top-0 z-[999] flex h-screen w-screen justify-end overflow-hidden bg-black/80 md:hidden'
+      >
+        <div
+          className={`${show ? 'translate-x-0' : 'translate-x-full'} h-screen w-10/12  bg-white transition-transform duration-1000 `}
+        >
+          <UserInfo className='py-8 border-b' />
+          <NavList
+            className='flex-col justify-start gap-1 py-4 text-gray-900'
+            data={links}
+          />
+          <button
+            onClick={handleClose}
+            className='block w-full px-4 py-3 text-base text-left text-gray-800 hover:bg-gray-100'
+          >
             Setting and privacy
           </button>
-          <button className="block text-gray-800 px-4 text-base py-3 w-full text-left hover:bg-gray-100">
+          <button
+            onClick={handleClose}
+            className='block w-full px-4 py-3 text-base text-left text-gray-800 hover:bg-gray-100'
+          >
             Language
           </button>
-          <button className="block text-gray-800 px-4 text-base py-3 w-full text-left hover:bg-gray-100">
+          <button
+            onClick={handleClose}
+            className='block w-full px-4 py-3 text-base text-left text-gray-800 hover:bg-gray-100'
+          >
             Help
           </button>
           <hr />
-          <button className="block px-4 text-base py-3 w-full text-left text-red-500 hover:bg-gray-100">
+          <button
+            onClick={handleClose}
+            className='block w-full px-4 py-3 text-base text-left text-red-500 hover:bg-gray-100'
+          >
             Logout
           </button>
         </div>
-    </nav>
-  )
+      </nav>
+    )
+  );
 }
 
 export default MobileNavbar
